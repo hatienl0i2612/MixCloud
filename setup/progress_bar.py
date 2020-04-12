@@ -1,11 +1,7 @@
-import datetime
-import sys
-import itertools
-import time
-
-from color import *
+from .color import *
 
 _spin = itertools.cycle(['▲', '►', '▼', '◄'])
+
 
 class ProgressBar(object):
 
@@ -13,18 +9,18 @@ class ProgressBar(object):
                   downloaded='', rate='', suffix='', bar_length=25):
         filledLength = int(round(bar_length * iteration / float(total)))
         percents = format(100.00 * (iteration / float(total)), '.2f')
-        bar = fc + sd + '#' * filledLength + fw + sd + '-' * (bar_length - filledLength)
-        # bar = fc + sd + '▓' * filledLength + fw + sd +'-' * (bar_length - filledLength)
+        # bar = fc + sd + '#' * filledLength + fw + sd + '-' * (bar_length - filledLength)
+        bar = fc + sd + '▓' * filledLength + fw + sd + '-' * (bar_length - filledLength)
         if ver == 'hls':
             sys.stdout.write(
                 '\033[2K\033[1G\r\r{}{}[{}{}*{}{}] : {}{}Length-video : [ {}/{} ] ╢{}{}{}╟  Percent : {}% '.format(
-                    fc, sd, fm, sb, fc, sd, fg, sb, ts_time, video_time, bar, fg, sb, percents))
+                    fg, sd, fc, sb, fg, sd, fg, sb, ts_time, video_time, bar, fg, sb, percents))
             sys.stdout.flush()
         else:
             if '0.00' not in rate:
                 sys.stdout.write(
                     '\033[2K\033[1G\r\r{}{}[{}{}*{}{}] : {}{}Content-length : {} ╢{}{}{}╟ Speed : {} Percent : {}% '.format(
-                        fc, sd, fm, sb, fc, sd, fg, sb, file_size, bar, fg, sb, rate, percents))
+                        fg, sd, fc, sb, fg, sd, fg, sb, file_size, bar, fg, sb, rate, percents))
                 sys.stdout.flush()
 
     def show_progress(self, total, recvd, ratio, rate, eta, ver=None, duration_ts=None):
@@ -66,15 +62,16 @@ class ProgressBar(object):
         if secs == 0:
             eta = "\n"
 
-        self._progress(_receiving, _total_size, file_size=str(_size) + str(suffix_size), \
-                       downloaded=str(_received) + str(suffix_recvd), \
-                       rate=str(rate) + str(suffix_rate), \
-                       suffix=str(eta), \
+        self._progress(_receiving, _total_size, file_size=str(_size) + str(suffix_size),
+                       downloaded=str(_received) + str(suffix_recvd),
+                       rate=str(rate) + str(suffix_rate),
+                       suffix=str(eta),
                        ver=ver,
                        video_time=video_time,
                        ts_time=ts_time
                        )
-    def spinner(self,text):
+
+    def spinner(self, text):
         spin = _spin.__next__()
         sys.stdout.write(text + spin)
         sys.stdout.flush()

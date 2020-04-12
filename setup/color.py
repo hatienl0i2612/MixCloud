@@ -1,6 +1,4 @@
-import os
-
-from colorama import init, Style, Fore, Back
+from .module import *
 
 if os.name == "posix":
     ## ----------------------------------------------------------------------------------------------------------------------  ##

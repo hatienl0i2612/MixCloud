@@ -1,3 +1,4 @@
 requests
 colorama
 pycryptodome
+bs4

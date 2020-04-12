@@ -1,9 +1,4 @@
-import time
-
-import requests
-from requests import RequestException
-
-from progress_bar import *
+from .progress_bar import *
 
 
 class ConnectionError(RequestException):
@@ -11,7 +6,7 @@ class ConnectionError(RequestException):
 
 
 HEADERS = {
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0',
+    'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.97 Safari/537.36',
     'Accept': '*/*',
     'Accept-Language': 'en-US,en;q=0.5',
     'Accept-Encoding': 'gzip, deflate, br',
@@ -179,5 +174,5 @@ class Downloader(object):
         if not self._active:
             os.rename(temp_filepath, filepath)
             retVal = {"status": True, "msg": "download"}
-
+        sys.stdout.write("\n")
         return retVal
