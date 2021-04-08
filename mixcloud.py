@@ -54,7 +54,10 @@ class ExtractMixcloud(ProgressBar):
         title = json_cloudcast.get("name")
         title = removeCharacter_filename(title)
         to_screen(title)
-        stream_info = json_cloudcast.get('streamInfo') or ErrorException('Cant extract url stream of video.')
+        stream_info = json_cloudcast.get('streamInfo') or None
+        if not stream_info:
+            to_screen("Cant extract url stream of video.")
+            return
         tracks = []
         for _type in self._type_url:
             url_encripted = stream_info.get(_type)

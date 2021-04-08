@@ -9,8 +9,8 @@ class ProgressBar(object):
                   downloaded='', rate='', suffix='', bar_length=25):
         filledLength = int(round(bar_length * iteration / float(total)))
         percents = format(100.00 * (iteration / float(total)), '.2f')
-        # bar = fc + sd + '#' * filledLength + fw + sd + '-' * (bar_length - filledLength)
-        bar = fc + sd + '▓' * filledLength + fw + sd + '-' * (bar_length - filledLength)
+        bar = fw + sb + '#' * filledLength + fw + sd + '-' * (bar_length - filledLength)
+        # bar = fc + sb + '▓' * filledLength + fw + sd + '-' * (bar_length - filledLength)
         if ver == 'hls':
             sys.stdout.write(
                 '\033[2K\033[1G\r\r{}{}[{}{}*{}{}] : {}{}Length-video : [ {}/{} ] ╢{}{}{}╟  Percent : {}% '.format(
@@ -19,8 +19,10 @@ class ProgressBar(object):
         else:
             if '0.00' not in rate:
                 sys.stdout.write(
-                    '\033[2K\033[1G\r\r{}{}[{}{}*{}{}] : {}{}Content-length : {} ╢{}{}{}╟ Speed : {} Percent : {}% '.format(
-                        fg, sd, fc, sb, fg, sd, fg, sb, file_size, bar, fg, sb, rate, percents))
+                    "\r{}{}[{}*{}] : Content-length : {}   ╢{}{}{}╟ Speed : {} Percent : {} %            ".format(
+                        sb, fw, fw, fw, file_size, bar, fw, sb, rate, percents
+                    )
+                )
                 sys.stdout.flush()
 
     def show_progress(self, total, recvd, ratio, rate, eta, ver=None, duration_ts=None):
